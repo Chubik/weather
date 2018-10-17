@@ -1,0 +1,10 @@
+version: '2'
+
+services:
+  app:
+    image: weathwr_app:latest
+    build: .
+    volumes:
+      - .:/go/src/weather
+    ports:
+      - "8089:8089"
