@@ -29,7 +29,6 @@ func (ws *WServer) Init() {
 
 	// r := gin.New()
 	r := gin.Default()
-
 	s := &http.Server{
 		Addr:           ws.Addr,
 		Handler:        r,
