@@ -1,7 +1,7 @@
 package api
 
 import (
-	"fmt"
+	"encoding/json"
 	"net/http"
 	"strings"
 	"weather/data"
@@ -26,7 +26,12 @@ func GetCity(c *gin.Context) {
 	for _, city := range data.Cities {
 		ct := strings.Split(city.Name, ",")
 		if strings.ToLower(pc) == strings.ToLower(ct[0]) {
-			c.String(http.StatusOK, fmt.Sprintf("%v\n", city))
+			ret, err := json.Marshal(city)
+			if err != nil {
+				c.String(http.StatusOK, "Error parsing city data")
+				return
+			}
+			c.String(http.StatusOK, string(ret))
 			return
 		}
 	}
