@@ -22,6 +22,7 @@ const (
 
 //Init server initialization function
 func (ws *WServer) Init() {
+
 	//Change on production deploy
 	// gin.SetMode(gin.ReleaseMode)
 
@@ -43,7 +44,7 @@ func (ws *WServer) Init() {
 	r.GET(healthCheckEndPoint, api.PingHandler)
 
 	//Routes
-	// r.POST("/lottery", api.Lottery)
+	r.GET("/getcities", api.GetCity)
 
 	//Start WEB server
 	log.Fatal(s.ListenAndServe())

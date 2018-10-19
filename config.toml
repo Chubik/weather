@@ -1,2 +1,4 @@
 addr = ":8089"
-file="cities.json"
+
+#path should be start from root of project
+file="./data/cities.json"

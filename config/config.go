@@ -20,7 +20,7 @@ func InitialConfig() error {
 	err := v.ReadInConfig()
 
 	C.WebServerAddr = v.GetString("addr")
-	C.FileName = v.GetString("cities.json")
+	C.FileName = v.GetString("file")
 
 	return err
 }
