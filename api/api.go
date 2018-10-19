@@ -2,6 +2,8 @@ package api
 
 import (
 	"encoding/json"
+	"fmt"
+	"log"
 	"net/http"
 	"strings"
 	"weather/data"
@@ -21,6 +23,7 @@ func NoRoute(c *gin.Context) {
 
 //GetCity function that finding part of cities and return a slice of cities
 func GetCity(c *gin.Context) {
+	var resp []string
 	q := c.Request.URL.Query()
 	pc := q["str"][0]
 	for _, city := range data.Cities {
@@ -28,12 +31,15 @@ func GetCity(c *gin.Context) {
 		if strings.ToLower(pc) == strings.ToLower(ct[0]) {
 			ret, err := json.Marshal(city)
 			if err != nil {
-				c.String(http.StatusOK, "Error parsing city data")
-				return
+				log.Println("Error parsing city data", err)
 			}
-			c.String(http.StatusOK, string(ret))
-			return
+			resp = append(resp, string(ret))
 		}
+	}
+	// fmt.Println(len(resp))
+	if len(resp) > 0 {
+		c.String(http.StatusOK, fmt.Sprintf("%s\n", resp))
+		return
 	}
 	c.String(http.StatusOK, "Cities not found")
 }
