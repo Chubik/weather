@@ -2,7 +2,6 @@ package api
 
 import (
 	"encoding/json"
-	"fmt"
 	"log"
 	"net/http"
 	"strings"
@@ -36,9 +35,8 @@ func GetCity(c *gin.Context) {
 			resp = append(resp, string(ret))
 		}
 	}
-	// fmt.Println(len(resp))
 	if len(resp) > 0 {
-		c.String(http.StatusOK, fmt.Sprintf("%s\n", resp))
+		c.JSON(http.StatusOK, resp)
 		return
 	}
 	c.String(http.StatusOK, "Cities not found")
