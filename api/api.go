@@ -24,10 +24,16 @@ func NoRoute(c *gin.Context) {
 func GetCity(c *gin.Context) {
 	var resp []string
 	q := c.Request.URL.Query()
-	pc := q["str"][0]
+	pc := strings.ToLower(q["str"][0])
+	if len(pc) < 4 {
+		c.String(http.StatusOK, "Short name of City. Should be more > 3")
+		return
+	}
 	for _, city := range data.Cities {
 		ct := strings.Split(city.Name, ",")
-		if strings.ToLower(pc) == strings.ToLower(ct[0]) {
+
+		if strings.Contains(strings.ToLower(ct[0]), pc) {
+			// if strings.ToLower(pc) == strings.ToLower(ct[0]) {
 			ret, err := json.Marshal(city)
 			if err != nil {
 				log.Println("Error parsing city data", err)

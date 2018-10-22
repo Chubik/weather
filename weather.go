@@ -9,10 +9,6 @@ import (
 
 func main() {
 
-	// rand.Seed(time.Now().UnixNano())
-
-	// core.LNQueue = &core.LNStack{}
-	// core.Wallet = &core.JackPot{}
 	err := config.InitialConfig()
 	if err != nil {
 		log.Fatal("[ERROR config init]", err)
@@ -21,6 +17,5 @@ func main() {
 	if err != nil {
 		log.Fatal("[ERROR] data init: ", err)
 	}
-	// setup.AllDataSetInit(core.LNQueue, core.Wallet, setup.C.TimerSec)
 	server.WeatherServer.Init()
 }
