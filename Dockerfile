@@ -1,4 +1,4 @@
-FROM golang:1.11.1
+FROM golang:1.11.1-alpine3.8
 COPY . /go/src/weather
 WORKDIR /go/src/weather
 

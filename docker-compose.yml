@@ -2,7 +2,7 @@ version: '2'
 
 services:
   app:
-    image: weathwr_app:latest
+    image: weather_app:latest
     build: .
     volumes:
       - .:/go/src/weather
