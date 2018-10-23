@@ -6,6 +6,7 @@ import "github.com/spf13/viper"
 type Config struct {
 	WebServerAddr string
 	FileName      string
+	Cap           int
 }
 
 //C is a global variable that contains all initialization params of APP
@@ -21,6 +22,7 @@ func InitialConfig() error {
 
 	C.WebServerAddr = v.GetString("addr")
 	C.FileName = v.GetString("file")
+	C.Cap = v.GetInt("cap")
 
 	return err
 }

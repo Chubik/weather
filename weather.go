@@ -11,7 +11,7 @@ func main() {
 
 	err := config.InitialConfig()
 	if err != nil {
-		log.Fatal("[ERROR config init]", err)
+		log.Fatal("[ERROR] config init: ", err)
 	}
 	err = data.Init(config.C.FileName)
 	if err != nil {

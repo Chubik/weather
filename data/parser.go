@@ -2,21 +2,9 @@ package data
 
 import (
 	"encoding/json"
-	"fmt"
 	"os"
 	"sort"
-)
-
-//CityItem type for one city
-type CityItem struct {
-	ID   int    `json:"id"`
-	Name string `json:"name"`
-}
-
-type Cts []*CityItem
-
-var (
-	Cities Cts
+	"strings"
 )
 
 //Init initialization data to slice of cities
@@ -26,10 +14,22 @@ func Init(file string) error {
 	if err != nil {
 		return err
 	}
+	var parse []*CityParse
 	jsonParser := json.NewDecoder(configFile)
-	jsonParser.Decode(&Cities)
+	err = jsonParser.Decode(&parse)
+	if err != nil {
+		return err
+	}
+	for _, i := range parse {
+		ct := strings.Split(i.Name, ",")
+		c := &CityItem{
+			ID:   i.ID,
+			Name: ct[0],
+			Code: ct[1],
+		}
+		Cities = append(Cities, c)
+	}
 	sort.Sort(Cts(Cities))
-	fmt.Println()
 	return nil
 }
 
