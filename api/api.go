@@ -24,7 +24,7 @@ func GetCity(c *gin.Context) {
 	q := c.Request.URL.Query()
 	pc := strings.ToLower(q["str"][0])
 	if len(pc) < config.C.Cap {
-		c.String(http.StatusOK, "Short name of City. Should be more > 3")
+		c.String(http.StatusOK, "Short name of City. Should be more > "+string(config.C.Cap))
 		return
 	}
 	resp := data.Search(pc)
