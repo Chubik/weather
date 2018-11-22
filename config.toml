@@ -1,7 +1,7 @@
 addr = ":8089"
 
 #path should be start from root of project
-file = "./data/cities.json"
+file = "./data/cities.min.json"
 
 #capacity of start search
-cap = 4
+cap = 2 

@@ -4,7 +4,6 @@ import (
 	"encoding/json"
 	"os"
 	"sort"
-	"strings"
 )
 
 //Init initialization data to slice of cities
@@ -21,11 +20,10 @@ func Init(file string) error {
 		return err
 	}
 	for _, i := range parse {
-		ct := strings.Split(i.Name, ",")
 		c := &CityItem{
-			ID:   i.ID,
-			Name: ct[0],
-			Code: ct[1],
+			ID:      i.ID,
+			Name:    i.Name,
+			Country: i.Country,
 		}
 		Cities = append(Cities, c)
 	}

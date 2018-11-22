@@ -1,6 +1,7 @@
 package server
 
 import (
+	"fmt"
 	"log"
 	"net/http"
 	"time"
@@ -46,6 +47,7 @@ func (ws *WServer) Init() {
 	//Routes
 	r.GET("/getcities", api.GetCity)
 
+	fmt.Printf("[INFO] Server starting: %v\n", ws.Addr)
 	//Start WEB server
 	log.Fatal(s.ListenAndServe())
 
