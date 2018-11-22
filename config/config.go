@@ -5,6 +5,7 @@ import "github.com/spf13/viper"
 //Config structure for the file configuration variables
 type Config struct {
 	WebServerAddr string
+	WebSocketAddr string
 	FileName      string
 	Cap           int
 }
@@ -21,6 +22,7 @@ func InitialConfig() error {
 	err := v.ReadInConfig()
 
 	C.WebServerAddr = v.GetString("addr")
+	C.WebSocketAddr = v.GetString("ws_addr")
 	C.FileName = v.GetString("file")
 	C.Cap = v.GetInt("cap")
 

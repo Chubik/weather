@@ -53,11 +53,23 @@ func (ws *WServer) Init() {
 
 	//setup default page not found
 	r.NoRoute(api.NoRoute)
+
+	r.LoadHTMLFiles("index.html")
+
+	r.GET("/", func(c *gin.Context) {
+		c.HTML(200, "index.html", nil)
+	})
+
 	//WEBServer Health Check route
 	r.GET(healthCheckEndPoint, api.PingHandler)
 
 	//Routes
 	r.GET("/getcities", api.GetCity)
+
+	//WebSockets setup
+	r.GET("/ws", func(c *gin.Context) {
+		wshandler(c.Writer, c.Request)
+	})
 
 	fmt.Printf("[INFO] Server starting: %v\n", ws.Addr)
 	//Start WEB server

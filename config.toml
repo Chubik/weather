@@ -1,4 +1,5 @@
 addr = ":8089"
+ws_addr = ":8090"
 
 #path should be start from root of project
 file = "./data/cities.min.json"
