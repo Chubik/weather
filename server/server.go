@@ -9,6 +9,7 @@ import (
 	"weather/config"
 
 	"github.com/gin-gonic/gin"
+	cors "github.com/itsjamie/gin-cors"
 )
 
 type WServer http.Server
@@ -31,6 +32,17 @@ func (ws *WServer) Init() {
 
 	// r := gin.New()
 	r := gin.Default()
+
+	r.Use(cors.Middleware(cors.Config{
+		Origins:         "*",
+		Methods:         "GET, PUT, POST, DELETE",
+		RequestHeaders:  "Origin, Authorization, Content-Type",
+		ExposedHeaders:  "",
+		MaxAge:          50 * time.Second,
+		Credentials:     true,
+		ValidateHeaders: false,
+	}))
+
 	s := &http.Server{
 		Addr:           ws.Addr,
 		Handler:        r,
