@@ -27,7 +27,6 @@ func wshandler(w http.ResponseWriter, r *http.Request) {
 		if err != nil {
 			break
 		}
-		// fmt.Println("------>", msg)
 		s := string(msg[:])
 
 		pc := strings.ToLower(s)
@@ -39,7 +38,6 @@ func wshandler(w http.ResponseWriter, r *http.Request) {
 		resp := data.Search(pc)
 		if len(resp) > 0 {
 			conn.WriteJSON(resp)
-			// conn.WriteMessage(t, []byte(fmt.Sprintf("%v", resp)))
 		} else {
 			conn.WriteMessage(t, []byte("Cities not found"))
 		}
