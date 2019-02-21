@@ -1,7 +1,16 @@
-FROM golang:1.11.1-alpine3.8
-COPY . /go/src/weather
-WORKDIR /go/src/weather
+FROM golang:alpine as builder
+RUN apk update && apk add git && go get gopkg.in/natefinch/lumberjack.v2
 
-RUN go build -o /app/weather .
-CMD ["/app/weather"]
-EXPOSE 8089
+WORKDIR /weather
+ENV CGO_ENABLED=0
+COPY . .
+RUN go build -o weather .
+
+FROM  alpine as runner
+
+WORKDIR /weather
+COPY --from=builder weather/ ./
+
+CMD ["/weather/weather"]
+EXPOSE 3001
+EXPOSE 3000 

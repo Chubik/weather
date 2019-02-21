@@ -2,9 +2,11 @@ version: '2'
 
 services:
   app:
-    image: weather_app:latest
+    image: weather:latest
     build: .
-    volumes:
-      - .:/go/src/weather
+    #    volumes:
+    #- .:/gener
     ports:
-      - "8089:8089"
+       - "3000:3000"
+       - "3001:3001"
+

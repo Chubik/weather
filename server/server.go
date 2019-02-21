@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	"os"
 	"time"
 	"weather/api"
 	"weather/config"
@@ -26,12 +27,11 @@ const (
 func (ws *WServer) Init() {
 
 	//Change on production deploy
-	// gin.SetMode(gin.ReleaseMode)
+	gin.SetMode(gin.ReleaseMode)
 
-	ws.Addr = config.C.WebServerAddr
-
-	// r := gin.New()
-	r := gin.Default()
+	ws.Addr = GetPort()
+	r := gin.New()
+	//r := gin.Default()
 
 	r.Use(cors.Middleware(cors.Config{
 		Origins:         "*",
@@ -75,4 +75,15 @@ func (ws *WServer) Init() {
 	//Start WEB server
 	log.Fatal(s.ListenAndServe())
 
+}
+
+// Get the Port from the environment so we can run on Heroku
+func GetPort() string {
+	var port = os.Getenv("PORT")
+	// Set a default port if there is nothing in the environment
+	if port == "" {
+		port = config.C.WebServerAddr
+		fmt.Println("INFO: No PORT environment variable detected, defaulting to " + port)
+	}
+	return ":" + port
 }
